@@ -1,8 +1,8 @@
-const { model, Schema } = require('mongoose');
+const { model, Schema } = require('mongoose')
 
 const artistSchema = new Schema({
   name: String,
-  nickname:  String,
+  nickname: String,
   email: {
     type: String,
     required: true,
