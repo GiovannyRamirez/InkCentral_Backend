@@ -15,9 +15,9 @@ module.exports = {
   },
   async create(req, res){
     try {
-      const { email, password } = req.body;
+      const { email, password, nickname, location, phone, name } = req.body;
       const encPassword = await bcrypt.hash(password, 8);
-      const artist = await Artist.create({ email, password: encPassword })
+      const artist = await Artist.create({ email, password: encPassword, nickname, location, phone, name })
 
       res.status(201).json({ message: 'Artist Created', data: artist })
     } catch (err){
