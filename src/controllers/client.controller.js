@@ -50,12 +50,13 @@ module.exports = {
       const id  = req.userId;
       const client = await Client.findById( id )
                                  .select('-password')
-                                 .populate( { path: 'notes payments', 
-                                              select: 'note -_id provider amount service',
+                                 .populate( { path: 'notes', select: 'note -_id' } )
+                                 .populate( { path: 'payments',                                               
+                                              select: 'provider amount service',
                                               populate: {
                                                 path: 'provider',
-                                                select:'name email'
-                                              }
+                                                select: 'name email'
+                                              } 
                                             } 
                                           )
       if( !client ){
