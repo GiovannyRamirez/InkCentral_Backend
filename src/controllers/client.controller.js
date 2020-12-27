@@ -50,7 +50,14 @@ module.exports = {
       const id  = req.userId;
       const client = await Client.findById( id )
                                  .select('-password')
-                                 .populate( { path: 'notes', select: 'note -_id' } );
+                                 .populate( { path: 'notes payments', 
+                                              select: 'note -_id provider amount service',
+                                              populate: {
+                                                path: 'provider',
+                                                select:'name email'
+                                              }
+                                            } 
+                                          )
       if( !client ){
         throw new Error( 'Client Not Found' )
       }
