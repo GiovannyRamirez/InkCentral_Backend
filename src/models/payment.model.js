@@ -1,4 +1,4 @@
-const { model, Schema, models } = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const paymentSchema = new Schema ({
   amount: {
@@ -21,6 +21,11 @@ const paymentSchema = new Schema ({
   }, 
   invoiceNumber: {
     type: String,
+    required: true
+  },
+  appointment: {
+    type: Schema.Types.ObjectId,
+    ref: 'Appointment',
     required: true
   }
 },{
