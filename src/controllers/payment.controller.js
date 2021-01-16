@@ -13,7 +13,6 @@ module.exports = {
                               ...req.body, 
                               provider: artist, 
                               consumer: client,
-                              appointment, 
                             })
       client.payments.push( payment )
       artist.payments.push( payment )
