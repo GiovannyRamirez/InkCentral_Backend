@@ -23,11 +23,10 @@ const paymentSchema = new Schema ({
     type: String,
     required: true
   },
-  appointment: {
-    type: Schema.Types.ObjectId,
-    ref: 'Appointment',
+  schedule: {
+    type: Date,
     required: true
-  }
+  },  
 },{
   timestamps: true
 })
