@@ -6,7 +6,6 @@ const artistRouter = require('./src/routes/artist')
 const clientRouter = require('./src/routes/client')
 const commentRouter = require('./src/routes/comment')
 const paymentRouter = require('./src/routes/payment')
-const appointmentRouter = require('./src/routes/appointment')
 
 const port = 8000;
 const app = express();
@@ -19,7 +18,6 @@ app.use('/artists', artistRouter);
 app.use('/clients', clientRouter);
 app.use('/comments', commentRouter);
 app.use('/payments', paymentRouter);
-app.use('/appointments', appointmentRouter)
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`)
