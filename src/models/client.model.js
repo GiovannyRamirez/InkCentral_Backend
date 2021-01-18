@@ -38,13 +38,6 @@ const clientSchema = new Schema ({
     ref: 'Payment'
     }],
     required: true,
-  },
-  appointments: {
-    type: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Appointment'
-    }],
-    required: true
   }
 }, {
   timestamps: true,

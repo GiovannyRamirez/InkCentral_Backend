@@ -74,13 +74,6 @@ const artistSchema = new Schema({
     }],
     required: true,
   },
-  appointments: {
-    type: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Appointment'
-    }],
-    required: true
-  }
 }, {
   timestamps: true
 })
