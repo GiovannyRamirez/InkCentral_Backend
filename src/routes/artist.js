@@ -9,6 +9,7 @@ router.route('/profile/:artistId').get(auth, artistController.showChosen);
 
 router.route('/profile').put(auth, formData, artistController.update);
 router.route('/:artistId').put(auth, artistController.hide);
+router.route('/enable/:artistId').put(auth, artistController.enable);
 
 router.route('/').get(artistController.list);
 router.route('/').post(artistController.create);
