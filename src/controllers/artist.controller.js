@@ -16,7 +16,7 @@ module.exports = {
   async list(req, res){
     try{
       const { inputSearch } = req.query
-      const querySearch = inputSearch ? {location: `${inputSearch}`} : {}
+      const querySearch = inputSearch ? {location: `${inputSearch}`, enable: true} : {enable: true}
       const artists = await Artist.find(querySearch)
                                   .select('-password')
                                   .populate( {  path: 'notes', select: 'note -_id' } )
@@ -48,7 +48,7 @@ module.exports = {
         process.env.SECRET,
         { expiresIn: 60 * 60 * 24 },
       );
-      await transporter.sendMail(welcome(artist))
+      // await transporter.sendMail(welcome(artist))
       res.status(201).json({ token });
     }
     catch(err){
@@ -136,22 +136,26 @@ module.exports = {
       if(!artist){
         throw new Error('Artist Not Found')
       }
-      await transporter.sendMail(updateConfirmation(artist))
+      // await transporter.sendMail(updateConfirmation(artist))
       res.status(200).json( { message: 'Artist Found', data: artist } )
     }
     catch(err){
       res.status(400).json( { message: err.message } )
     }
   },
-  async destroy(req, res){
+  async hide(req, res){
     try {
       const { artistId } = req.params;
-      const artist = await Artist.findByIdAndDelete(artistId).select('-password');
+      const artist = await Artist.findByIdAndUpdate(
+                                   artistId,
+                                   req.body,
+                                   { new: true, runValidators: true } )
+                                 .select('-password');
       if(!artist){
         throw new Error('Artist Not Found')
       }
-      await transporter.sendMail(deleteConfirmation(artist.email))
-      res.status(200).json( { message: 'Artist Deleted', data: artist } )
+      // await transporter.sendMail(deleteConfirmation(artist.email))
+      res.status(200).json( { message: 'Artist Hidden', data: artist } )
     }
     catch(err){
       res.status(400).json( { message: err.message } )
@@ -193,7 +197,7 @@ module.exports = {
         throw new Error('email not found in database')
       }
       else {
-        await transporter.sendMail(sendArtistResetEmail(artist, token));
+        // await transporter.sendMail(sendArtistResetEmail(artist, token));
         res.status(200).json('recovery email sent')
       }
 
