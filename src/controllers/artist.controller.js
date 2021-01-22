@@ -161,6 +161,24 @@ module.exports = {
       res.status(400).json( { message: err.message } )
     }
   },
+  async enable(req, res){
+    try {
+      const { artistId } = req.params;
+      const artist = await Artist.findByIdAndUpdate(
+                                   artistId,
+                                   req.body,
+                                   { new: true, runValidators: true } )
+                                 .select('-password');
+      if(!artist){
+        throw new Error('Artist Not Found')
+      }
+      // await transporter.sendMail(deleteConfirmation(artist.email))
+      res.status(200).json( { message: 'Artist Visible', data: artist } )
+    }
+    catch(err){
+      res.status(400).json( { message: err.message } )
+    }
+  },
   async showPayments(req, res){
     try{
       const id  = req.userId;
