@@ -7,7 +7,8 @@ const {
   transporter, 
   welcome, 
   updateConfirmation,
-  deleteConfirmation,
+  hideConfirmation,
+  enableConfirmation,
   sendArtistResetEmail
 } = require('../utils/mailer');
 
@@ -48,7 +49,7 @@ module.exports = {
         process.env.SECRET,
         { expiresIn: 60 * 60 * 24 },
       );
-      // await transporter.sendMail(welcome(artist))
+      await transporter.sendMail(welcome(artist))
       res.status(201).json({ token });
     }
     catch(err){
@@ -136,7 +137,7 @@ module.exports = {
       if(!artist){
         throw new Error('Artist Not Found')
       }
-      // await transporter.sendMail(updateConfirmation(artist))
+      await transporter.sendMail(updateConfirmation(artist))
       res.status(200).json( { message: 'Artist Found', data: artist } )
     }
     catch(err){
@@ -154,7 +155,7 @@ module.exports = {
       if(!artist){
         throw new Error('Artist Not Found')
       }
-      // await transporter.sendMail(deleteConfirmation(artist.email))
+      await transporter.sendMail(hideConfirmation(artist.email))
       res.status(200).json( { message: 'Artist Hidden', data: artist } )
     }
     catch(err){
@@ -172,7 +173,7 @@ module.exports = {
       if(!artist){
         throw new Error('Artist Not Found')
       }
-      // await transporter.sendMail(deleteConfirmation(artist.email))
+      await transporter.sendMail(enableConfirmation(artist.email))
       res.status(200).json( { message: 'Artist Visible', data: artist } )
     }
     catch(err){
@@ -215,7 +216,7 @@ module.exports = {
         throw new Error('email not found in database')
       }
       else {
-        // await transporter.sendMail(sendArtistResetEmail(artist, token));
+        await transporter.sendMail(sendArtistResetEmail(artist, token));
         res.status(200).json('recovery email sent')
       }
 
